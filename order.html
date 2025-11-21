@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrownieBox & Co — Order</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+:root{--warm-brown:#A67B5B;--dark-brown:#5C3A21;--cream:#FFF5E1;--muted:#9E8F84;}
+body{margin:0;font-family:'Poppins',sans-serif;background:var(--cream);color:var(--dark-brown);}
+.container{max-width:1100px;margin:0 auto;padding:28px;}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;}
+.logo{font-family:'Sacramento',cursive;font-size:28px;font-weight:700;}
+nav a{margin-left:12px;padding:8px 14px;background:var(--warm-brown);color:white;border-radius:10px;font-weight:600;}
+form{background:white;padding:20px;border-radius:12px;max-width:600px;margin:0 auto;}
+form label{display:block;margin:12px 0 6px;}
+form input[type=text],form select{width:100%;padding:8px;border-radius:8px;border:1px solid #e7e0db;}
+form input[type=checkbox]{margin-right:6px;}
+form button{margin-top:16px;background:var(--warm-brown);color:white;padding:12px 16px;border:none;border-radius:10px;font-weight:600;cursor:pointer;}
+footer{margin-top:32px;text-align:center;font-size:14px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="logo">BrownieBox & Co</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+  </nav>
+</header>
+
+<section>
+<h2>Place Your Order</h2>
+<form id="orderForm">
+<label>Name</label>
+<input type="text" id="customerName" placeholder="Your name" required>
+
+<label>Choose your items</label>
+<select id="items" multiple size="6">
+  <option>Regular Chocolate Brownie</option>
+  <option>Seasonal Brownies</option>
+  <option>Custom Whole Brownie Tray</option>
+  <option>Espresso Brownie</option>
+  <option>Brookie</option>
+  <option>Regular Chocolate Chip Cookie</option>
+  <option>Seasonal Cookies</option>
+  <option>Custom Whole Cookie Tray</option>
+  <option>Cookie Monster Cookie</option>
+  <option>Birthday Cake Cookie</option>
+  <option>Triple Chocolate Chip Cookie</option>
+</select>
+
+<label>Add-ins</label>
+<input type="checkbox" value="Peppermint Crisp Chocolate">Peppermint Crisp Chocolate
+<input type="checkbox" value="Reeses Pieces">Reeses Pieces
+<input type="checkbox" value="Mini Marshmallows">Mini Marshmallows
+<input type="checkbox" value="Caramel Pieces">Caramel Pieces
+<input type="checkbox" value="Oreos">Oreos
+<input type="checkbox" value="Pretzels">Pretzels
+<input type="checkbox" value="Nuts">Nuts (pecans, walnut, etc.)
+<input type="checkbox" value="Regular Popcorn">Regular Popcorn
+<input type="checkbox" value="Caramel Popcorn">Caramel Popcorn
+<input type="checkbox" value="Homemade Graham Crackers">Homemade Graham Crackers
+<input type="checkbox" value="Candy Canes">Candy Canes
+<input type="checkbox" value="Milk Chocolate Chips">Milk Chocolate Chips
+<input type="checkbox" value="Chocolate Bar (DM)">Chocolate Bar (DM)
+<input type="checkbox" value="Peanut Butter Chips">Peanut Butter Chips
+<input type="checkbox" value="White Chocolate Chips">White Chocolate Chips
+<input type="checkbox" value="Dark Chocolate Chips">Dark Chocolate Chips
+
+<button type="button" onclick="sendOrder()">Send Order via WhatsApp</button>
+</form>
+</section>
+
+<footer>
+<div>Email: browniebox.co2025@gmail.com | WhatsApp: +27 73 161 0735 | Instagram: @_browniebox.co</div>
+<div>© <span id="year"></span> BrownieBox & Co — Hand-baked with care in Ruimsig Country Estate</div>
+</footer>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function sendOrder(){
+  const name = document.getElementById('customerName').value;
+  const itemSelect = document.getElementById('items');
+  const items = Array.from(itemSelect.selectedOptions).map(o => o.value);
+  const addIns = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value);
+
+  if(!name || items.length===0){
+    alert('Please enter your name and select at least one item.');
+    return;
+  }
+
+  let message = `Hi, I would like to order:\nName: ${name}\nItems: ${items.join(', ')}\nAdd-ins: ${addIns.join(', ')}`;
+  const url = `https://wa.me/27731610735?text=${encodeURIComponent(message)}`;
+  window.open(url,'_blank');
+}
+</script>
+</body>
+</html>
